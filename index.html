@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>O Senhor · Cardápio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0e0d0c;
+    --bg-soft:#151312;
+    --line:rgba(214,196,168,.18);
+    --ink:#f2ece2;
+    --muted:#a89e8f;
+    --gold:#c9a961;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;background:var(--bg);color:var(--ink);
+    font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    background-image:radial-gradient(120% 80% at 50% -10%, rgba(201,169,97,.10), transparent 60%);
+    min-height:100vh;
+  }
+  .wrap{max-width:520px;margin:0 auto;padding:56px 26px 90px}
+
+  header{text-align:center;animation:rise .9s cubic-bezier(.2,.8,.2,1) both}
+  .photo{
+    width:112px;height:112px;border-radius:50%;margin:0 auto 26px;
+    object-fit:cover;display:block;
+    border:1px solid var(--line);
+    box-shadow:0 18px 50px rgba(0,0,0,.55);
+    background:var(--bg-soft);
+  }
+  .eyebrow{
+    font-size:10px;letter-spacing:.42em;text-transform:uppercase;
+    color:var(--gold);font-weight:400;margin:0 0 14px
+  }
+  h1{
+    font-family:'Cormorant Garamond',serif;font-weight:300;
+    font-size:56px;line-height:1;margin:0;letter-spacing:.02em
+  }
+  .sub{
+    font-family:'Cormorant Garamond',serif;font-style:italic;
+    color:var(--muted);font-size:17px;margin:16px 0 0
+  }
+  .rule{
+    width:44px;height:1px;background:var(--gold);opacity:.6;
+    margin:34px auto 0
+  }
+
+  section{margin-top:52px;animation:rise .9s cubic-bezier(.2,.8,.2,1) both}
+  section:nth-of-type(1){animation-delay:.1s}
+  section:nth-of-type(2){animation-delay:.2s}
+  h2{
+    font-size:10px;letter-spacing:.38em;text-transform:uppercase;
+    color:var(--muted);font-weight:400;text-align:center;margin:0 0 8px
+  }
+
+  .item{
+    width:100%;text-align:left;background:transparent;color:inherit;
+    border:0;border-bottom:1px solid var(--line);
+    padding:22px 4px;cursor:pointer;
+    display:flex;align-items:baseline;gap:14px;
+    transition:background .35s ease,padding .35s ease,border-color .35s ease;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .item:active{background:rgba(255,255,255,.03)}
+  .item .name{
+    font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400;
+    flex:1;transition:color .3s ease
+  }
+  .item .desc{
+    display:block;font-family:Inter,sans-serif;font-size:12.5px;
+    color:var(--muted);font-weight:300;margin-top:5px;letter-spacing:.01em
+  }
+  .item .mark{
+    font-size:13px;color:var(--gold);opacity:0;transform:translateY(-2px);
+    transition:opacity .4s ease,transform .4s ease
+  }
+  .item[aria-pressed="true"]{background:rgba(201,169,97,.06);padding-left:14px;padding-right:14px}
+  .item[aria-pressed="true"] .name{color:var(--gold)}
+  .item[aria-pressed="true"] .mark{opacity:1;transform:translateY(0)}
+
+  .footer{
+    margin-top:64px;text-align:center;
+    font-family:'Cormorant Garamond',serif;font-style:italic;
+    color:var(--muted);font-size:15px;line-height:1.7;
+    animation:rise .9s .3s cubic-bezier(.2,.8,.2,1) both
+  }
+
+  .bar{
+    position:fixed;left:0;right:0;bottom:0;
+    padding:16px 26px calc(18px + env(safe-area-inset-bottom));
+    background:linear-gradient(to top, var(--bg) 62%, rgba(14,13,12,0));
+    transform:translateY(120%);transition:transform .55s cubic-bezier(.2,.8,.2,1);
+    pointer-events:none;
+  }
+  .bar.show{transform:translateY(0);pointer-events:auto}
+  .bar-inner{
+    max-width:520px;margin:0 auto;
+    border:1px solid var(--line);border-radius:16px;
+    background:rgba(21,19,18,.9);backdrop-filter:blur(14px);
+    padding:16px 20px;text-align:center
+  }
+  .bar-inner p{margin:0;font-size:13px;color:var(--muted);font-weight:300}
+  .bar-inner strong{color:var(--ink);font-weight:400}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <!-- Troque pela nossa foto: assets/nos.jpg -->
+    <img class="photo" src="assets/nos.jpg" alt="" onerror="this.style.display='none'">
+    <p class="eyebrow">Restaurante</p>
+    <h1>O Senhor</h1>
+    <p class="sub">Uma mesa, um rooftop, uma noite só sua.</p>
+    <div class="rule"></div>
+  </header>
+
+  <section>
+    <h2>Pratos</h2>
+    <button class="item" aria-pressed="false" data-group="prato">
+      <span class="name">Wrap de Carne<span class="desc">Carne desfiada, molho da casa e um pouco de exagero.</span></span>
+      <span class="mark">escolhido</span>
+    </button>
+    <button class="item" aria-pressed="false" data-group="prato">
+      <span class="name">Wrap de Frango<span class="desc">Frango, temperinho e a certeza de que vai gostar.</span></span>
+      <span class="mark">escolhido</span>
+    </button>
+  </section>
+
+  <section>
+    <h2>Bebidas</h2>
+    <button class="item" aria-pressed="false" data-group="bebida">
+      <span class="name">Vinho Tinto Seco<span class="desc">Encorpado, para quem gosta de conversa longa.</span></span>
+      <span class="mark">escolhido</span>
+    </button>
+    <button class="item" aria-pressed="false" data-group="bebida">
+      <span class="name">Vinho Branco Suave<span class="desc">Doce, leve — o seu de sempre.</span></span>
+      <span class="mark">escolhido</span>
+    </button>
+    <button class="item" aria-pressed="false" data-group="bebida">
+      <span class="name">Suco de Pêssego<span class="desc">Del Valle, gelado.</span></span>
+      <span class="mark">escolhido</span>
+    </button>
+    <button class="item" aria-pressed="false" data-group="bebida">
+      <span class="name">Coca-Cola Zero<span class="desc">A escolha do chef.</span></span>
+      <span class="mark">escolhido</span>
+    </button>
+  </section>
+
+  <p class="footer">Serviço exclusivo para uma pessoa.<br>Escolha com calma — o chef já sabe o que fazer.</p>
+</div>
+
+<div class="bar" id="bar">
+  <div class="bar-inner"><p id="barText"></p></div>
+</div>
+
+<script>
+  const escolhas = {};
+  document.querySelectorAll('.item').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const grupo = btn.dataset.group;
+      document.querySelectorAll(`.item[data-group="${grupo}"]`)
+        .forEach(o => o.setAttribute('aria-pressed', 'false'));
+      btn.setAttribute('aria-pressed', 'true');
+      escolhas[grupo] = btn.querySelector('.name').firstChild.textContent.trim();
+      atualizar();
+    });
+  });
+
+  function atualizar() {
+    const partes = [];
+    if (escolhas.prato) partes.push(`<strong>${escolhas.prato}</strong>`);
+    if (escolhas.bebida) partes.push(`<strong>${escolhas.bebida}</strong>`);
+    document.getElementById('barText').innerHTML = 'Pedido anotado · ' + partes.join(' · ');
+    document.getElementById('bar').classList.add('show');
+  }
+</script>
+</body>
+</html>
